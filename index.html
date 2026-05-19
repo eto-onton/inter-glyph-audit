@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inter optimized comparator</title>
+    <style>
+      @font-face {
+        font-family: "Inter Original";
+        src: url("./fonts/Inter-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Original";
+        src: url("./fonts/Inter-Medium.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Original";
+        src: url("./fonts/Inter-SemiBold.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Original";
+        src: url("./fonts/Inter-ExtraBold.woff2") format("woff2");
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Optimized";
+        src: url("./fonts/InterOptimized-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Optimized";
+        src: url("./fonts/InterOptimized-Medium.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Optimized";
+        src: url("./fonts/InterOptimized-SemiBold.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter Optimized";
+        src: url("./fonts/InterOptimized-ExtraBold.woff2") format("woff2");
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --bg: #f7f5ef;
+        --panel: #ffffff;
+        --ink: #1d2527;
+        --muted: #667174;
+        --line: #d9ded8;
+        --accent: #006b5b;
+        --accent-2: #b1442f;
+        --shadow: 0 12px 32px rgba(29, 37, 39, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter Original", system-ui, sans-serif;
+      }
+
+      main {
+        width: min(1480px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 44px;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 20px;
+        align-items: end;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .size-strip {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        gap: 8px;
+        min-width: 520px;
+      }
+
+      .size-pill {
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .size-pill strong {
+        display: block;
+        font-size: 12px;
+      }
+
+      .size-pill span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(240px, 2fr) repeat(2, minmax(150px, 1fr));
+        gap: 12px;
+        padding: 14px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 12px;
+        z-index: 5;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-height: 40px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+      }
+
+      input[type="range"] {
+        padding: 0;
+        accent-color: var(--accent);
+      }
+
+      .quick {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 12px 0 20px;
+      }
+
+      .quick button {
+        min-width: 36px;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--ink);
+        font: 600 15px "Inter Original", system-ui, sans-serif;
+        cursor: pointer;
+      }
+
+      .quick button:hover {
+        border-color: var(--accent);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .card-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .card-title {
+        min-width: 0;
+      }
+
+      .card-title strong {
+        display: block;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .card-title span,
+      .status {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .status.ok {
+        color: var(--accent);
+      }
+
+      .status.warn {
+        color: var(--accent-2);
+      }
+
+      .glyph-box {
+        display: grid;
+        place-items: center;
+        min-height: 310px;
+        padding: 18px;
+        background:
+          linear-gradient(var(--line) 1px, transparent 1px) 0 50% / 100% 1px no-repeat,
+          linear-gradient(90deg, transparent 49.8%, rgba(0, 107, 91, 0.22) 50%, transparent 50.2%) center / 100% 100% no-repeat,
+          #fbfcfa;
+      }
+
+      .glyph {
+        line-height: 1;
+        white-space: pre;
+        font-size: var(--sample-size, 220px);
+        font-weight: var(--sample-weight, 400);
+      }
+
+      .glyph.missing-glyph::after {
+        content: "Отсутствует в наборе";
+        color: var(--accent-2);
+        font: 600 13px "Inter Original", system-ui, sans-serif;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border-top: 1px solid var(--line);
+      }
+
+      .metric {
+        display: grid;
+        gap: 2px;
+        padding: 9px 10px;
+        background: #fff;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .metric strong {
+        font-size: 13px;
+      }
+
+      .analysis {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .panel h2 {
+        margin: 0;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+
+      .charset {
+        margin-top: 12px;
+      }
+
+      .charset-table {
+        display: grid;
+        grid-template-columns: 112px repeat(2, minmax(92px, 1fr));
+        gap: 1px;
+        padding: 12px;
+        background: var(--line);
+        max-height: 720px;
+        overflow: auto;
+      }
+
+      .cell {
+        min-height: 56px;
+        display: grid;
+        place-items: center;
+        background: #fff;
+        font-size: 30px;
+        overflow: hidden;
+      }
+
+      .cell.glyph-cell {
+        cursor: pointer;
+      }
+
+      .cell.glyph-cell:hover {
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
+      }
+
+      .cell.missing {
+        color: var(--accent-2);
+        background: #fff5f1;
+        text-decoration: line-through;
+      }
+
+      .cell.label {
+        justify-items: start;
+        padding: 8px 10px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .cell.label strong {
+        color: var(--ink);
+        font-size: 12px;
+      }
+
+      .cell.head {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        color: var(--muted);
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .block-row {
+        grid-column: 1 / -1;
+        min-height: 36px;
+        justify-content: start;
+        padding: 8px 10px;
+        background: #f3f6f2;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 1100px) {
+        header,
+        .controls,
+        .analysis {
+          grid-template-columns: 1fr;
+        }
+
+        .size-strip {
+          min-width: 0;
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        main {
+          width: min(100vw - 20px, 1480px);
+          padding-top: 16px;
+        }
+
+        .grid,
+        .size-strip {
+          grid-template-columns: 1fr;
+        }
+
+        .glyph-box {
+          min-height: 220px;
+        }
+
+        .charset-table {
+          grid-template-columns: 92px repeat(2, minmax(64px, 1fr));
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>Inter: Original vs Optimized</h1>
+          <p class="lead">Введите символ или короткую строку, чтобы сравнить контуры, метрики и визуальные отличия между исходным и оптимизированным WOFF2-файлом.</p>
+        </div>
+        <div class="size-strip" id="sizeStrip"></div>
+      </header>
+
+      <section class="controls" aria-label="Настройки сравнения">
+        <label>
+          Символ или строка
+          <input id="sampleInput" value="Ж" autocomplete="off" />
+        </label>
+        <label>
+          Вес
+          <select id="weightInput">
+            <option value="400" selected>400 Regular</option>
+            <option value="500">500 Medium</option>
+            <option value="600">600 SemiBold</option>
+            <option value="800">800 ExtraBold</option>
+          </select>
+        </label>
+        <label>
+          Кегль: <output id="sizeValue">220</output> px
+          <input id="sizeInput" type="range" min="48" max="340" step="1" value="220" />
+        </label>
+      </section>
+
+      <div class="quick" id="quickChars" aria-label="Быстрые символы"></div>
+
+      <section class="grid" id="cards"></section>
+
+      <section class="panel charset">
+        <h2>Все glyph codepoints</h2>
+        <div class="charset-table" id="charsetTable"></div>
+      </section>
+    </main>
+
+    <script>
+      const fonts = [
+        {
+          id: "original",
+          name: "Inter Original",
+          family: "Inter Original",
+          file: "400/500/600/800 static WOFF2",
+          size: "445 KB / 4 files",
+        },
+        {
+          id: "optimized",
+          name: "Optimized",
+          family: "Inter Optimized",
+          file: "400/500/600/800 optimized static WOFF2",
+          size: "51 KB / 4 files",
+        },
+      ];
+
+      const quickChars = [
+        "A", "a", "Ж", "ж", "Ё", "ё", "Й", "ї", "Ґ", "ß", "№", "₽", "€", "$",
+        "0", "1", "4", "…", "—", "→", "✓", "★", "æ", "ø", "你",
+      ];
+
+      const sampleInput = document.querySelector("#sampleInput");
+      const weightInput = document.querySelector("#weightInput");
+      const sizeInput = document.querySelector("#sizeInput");
+      const sizeValue = document.querySelector("#sizeValue");
+      const cards = document.querySelector("#cards");
+      const sizeStrip = document.querySelector("#sizeStrip");
+      const quick = document.querySelector("#quickChars");
+      const charsetTable = document.querySelector("#charsetTable");
+      let coverage = {};
+      let coverageReady = false;
+      let renderToken = 0;
+      let charsetWeight = "";
+
+      const formatNumber = (value) => Number.isFinite(value) ? value.toFixed(1) : "n/a";
+
+      function setRootVars() {
+        document.documentElement.style.setProperty("--sample-size", `${sizeInput.value}px`);
+        document.documentElement.style.setProperty("--sample-weight", weightInput.value);
+        sizeValue.value = sizeInput.value;
+      }
+
+      function makeFontShorthand(font, size = Number(sizeInput.value), weight = weightInput.value) {
+        return `normal ${weight} ${size}px "${font.family}"`;
+      }
+
+      function getText() {
+        return sampleInput.value || " ";
+      }
+
+      function measure(font) {
+        if (!hasEveryCodepoint(font.id, getText())) {
+          return {
+            width: Number.NaN,
+            left: Number.NaN,
+            right: Number.NaN,
+            ascent: Number.NaN,
+            descent: Number.NaN,
+          };
+        }
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.font = makeFontShorthand(font);
+        const m = ctx.measureText(getText());
+        return {
+          width: m.width,
+          left: m.actualBoundingBoxLeft,
+          right: m.actualBoundingBoxRight,
+          ascent: m.actualBoundingBoxAscent,
+          descent: m.actualBoundingBoxDescent,
+        };
+      }
+
+      function missingGlyphHeuristic(font) {
+        return !hasEveryCodepoint(font.id, getText());
+      }
+
+      function hasCodepoint(fontId, point) {
+        if (!coverageReady) return false;
+        const ranges = coverage[fontId]?.ranges || [];
+        return ranges.some(([start, end]) => point >= start && point <= end);
+      }
+
+      function hasEveryCodepoint(fontId, value) {
+        const points = [...value].map((char) => char.codePointAt(0));
+        return points.length > 0 && points.every((point) => hasCodepoint(fontId, point));
+      }
+
+      function expandRanges(ranges = []) {
+        const points = [];
+        for (const [start, end] of ranges) {
+          for (let point = start; point <= end; point += 1) {
+            points.push(point);
+          }
+        }
+        return points;
+      }
+
+      function allInventoryPoints() {
+        const points = new Set();
+        for (const font of fonts) {
+          for (const point of expandRanges(coverage[font.id]?.ranges)) {
+            points.add(point);
+          }
+        }
+        return [...points].sort((a, b) => a - b);
+      }
+
+      function codepointLabel(point) {
+        const width = point > 0xffff ? 6 : 4;
+        return `U+${point.toString(16).toUpperCase().padStart(width, "0")}`;
+      }
+
+      function unicodeBlockName(point) {
+        const blocks = [
+          [0x0000, 0x007f, "Basic Latin"],
+          [0x0080, 0x00ff, "Latin-1 Supplement"],
+          [0x0100, 0x024f, "Latin Extended"],
+          [0x0250, 0x02af, "IPA Extensions"],
+          [0x02b0, 0x02ff, "Spacing Modifier Letters"],
+          [0x0300, 0x036f, "Combining Diacritical Marks"],
+          [0x0370, 0x03ff, "Greek and Coptic"],
+          [0x0400, 0x052f, "Cyrillic"],
+          [0x1d00, 0x1d7f, "Phonetic Extensions"],
+          [0x1e00, 0x1eff, "Latin Extended Additional"],
+          [0x2000, 0x206f, "General Punctuation"],
+          [0x2070, 0x209f, "Superscripts and Subscripts"],
+          [0x20a0, 0x20cf, "Currency Symbols"],
+          [0x20d0, 0x20ff, "Combining Marks for Symbols"],
+          [0x2100, 0x214f, "Letterlike Symbols"],
+          [0x2150, 0x218f, "Number Forms"],
+          [0x2190, 0x21ff, "Arrows"],
+          [0x2200, 0x22ff, "Mathematical Operators"],
+          [0x2300, 0x23ff, "Miscellaneous Technical"],
+          [0x2460, 0x24ff, "Enclosed Alphanumerics"],
+          [0x25a0, 0x25ff, "Geometric Shapes"],
+          [0x2600, 0x26ff, "Miscellaneous Symbols"],
+          [0x2700, 0x27bf, "Dingbats"],
+          [0x2b00, 0x2bff, "Miscellaneous Symbols and Arrows"],
+          [0x2c60, 0x2c7f, "Latin Extended-C"],
+          [0xa640, 0xa69f, "Cyrillic Extended-B"],
+          [0xe000, 0xf8ff, "Private Use Area"],
+          [0xfb00, 0xfb4f, "Alphabetic Presentation Forms"],
+          [0xfe00, 0xfe0f, "Variation Selectors"],
+          [0x1f100, 0x1f1ff, "Enclosed Alphanumeric Supplement"],
+          [0x1f800, 0x1f8ff, "Supplemental Arrows-C"],
+        ];
+        const block = blocks.find(([start, end]) => point >= start && point <= end);
+        return block ? block[2] : "Other";
+      }
+
+      function renderCards() {
+        cards.innerHTML = "";
+        for (const font of fonts) {
+          const metrics = measure(font);
+          const maybeMissing = missingGlyphHeuristic(font);
+          const visibleText = maybeMissing ? "" : escapeHtml(getText());
+          const card = document.createElement("article");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="card-head">
+              <div class="card-title">
+                <strong>${font.name}</strong>
+                <span>${font.file}</span>
+              </div>
+              <span class="status ${maybeMissing ? "warn" : "ok"}">${maybeMissing ? "missing" : "in cmap"}</span>
+            </div>
+            <div class="glyph-box">
+              <div class="glyph ${maybeMissing ? "missing-glyph" : ""}" style="font-family: '${font.family}'">${visibleText}</div>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>width</span><strong>${formatNumber(metrics.width)}</strong></div>
+              <div class="metric"><span>ascent</span><strong>${formatNumber(metrics.ascent)}</strong></div>
+              <div class="metric"><span>descent</span><strong>${formatNumber(metrics.descent)}</strong></div>
+              <div class="metric"><span>left / right</span><strong>${formatNumber(metrics.left)} / ${formatNumber(metrics.right)}</strong></div>
+            </div>
+          `;
+          cards.appendChild(card);
+        }
+      }
+
+      function renderCharsetTable() {
+        if (!coverageReady) {
+          charsetTable.innerHTML = "";
+          return;
+        }
+        if (charsetWeight === weightInput.value && charsetTable.childElementCount > 0) return;
+        charsetWeight = weightInput.value;
+        charsetTable.innerHTML = "";
+        const first = document.createElement("div");
+        first.className = "cell head";
+        first.textContent = "Codepoint";
+        charsetTable.appendChild(first);
+        for (const font of fonts) {
+          const head = document.createElement("div");
+          head.className = "cell head";
+          head.textContent = font.name;
+          charsetTable.appendChild(head);
+        }
+        let lastBlock = "";
+        for (const point of allInventoryPoints()) {
+          if (point === 0 || point === 0xfeff) continue;
+          const char = String.fromCodePoint(point);
+          const block = unicodeBlockName(point);
+          if (block !== lastBlock) {
+            const blockRow = document.createElement("div");
+            blockRow.className = "cell block-row";
+            blockRow.textContent = block;
+            charsetTable.appendChild(blockRow);
+            lastBlock = block;
+          }
+          const labelCell = document.createElement("div");
+          labelCell.className = "cell label";
+          labelCell.innerHTML = `<strong>${codepointLabel(point)}</strong>`;
+          charsetTable.appendChild(labelCell);
+          for (const font of fonts) {
+            const cell = document.createElement("button");
+            cell.className = "cell glyph-cell";
+            cell.type = "button";
+            cell.textContent = char;
+            cell.style.fontFamily = `"${font.family}"`;
+            cell.style.fontWeight = weightInput.value;
+            if (!hasEveryCodepoint(font.id, char)) {
+              cell.classList.add("missing");
+              cell.title = "Нет в cmap этого файла";
+              cell.textContent = "";
+            } else {
+              cell.title = `${codepointLabel(point)} ${char}`;
+            }
+            cell.addEventListener("click", () => {
+              sampleInput.value = char;
+              renderAll();
+            });
+            charsetTable.appendChild(cell);
+          }
+        }
+      }
+
+      function escapeHtml(value) {
+        return value
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      async function ensureFontsLoaded() {
+        const text = getText();
+        const size = Math.max(Number(sizeInput.value), 230);
+        await Promise.all(
+          fonts.flatMap((font) =>
+            ["400", "500", "600", "800"].map((weight) =>
+              document.fonts.load(makeFontShorthand(font, size, weight), text)
+            )
+          )
+        );
+        await document.fonts.ready;
+      }
+
+      async function renderAll() {
+        const token = ++renderToken;
+        setRootVars();
+        await ensureFontsLoaded();
+        if (token !== renderToken) return;
+        renderCards();
+        renderCharsetTable();
+      }
+
+      function initStaticUi() {
+        for (const font of fonts) {
+          const pill = document.createElement("div");
+          pill.className = "size-pill";
+          const glyphCount = coverage[font.id]?.count;
+          pill.innerHTML = `<strong>${font.name}</strong><span>${font.size}${glyphCount ? ` · ${glyphCount} cps` : ""}</span>`;
+          sizeStrip.appendChild(pill);
+        }
+
+        for (const char of quickChars) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = char;
+          button.addEventListener("click", () => {
+            sampleInput.value = char;
+            renderAll();
+          });
+          quick.appendChild(button);
+        }
+      }
+
+      async function boot() {
+        try {
+          const response = await fetch("./fonts/coverage.json?v=6", { cache: "no-store" });
+          if (!response.ok) throw new Error(`Coverage HTTP ${response.status}`);
+          coverage = await response.json();
+          coverageReady = true;
+        } catch (error) {
+          console.warn("Coverage JSON was not loaded", error);
+          coverageReady = false;
+        }
+        const initialSample = new URLSearchParams(location.search).get("sample");
+        if (initialSample) sampleInput.value = initialSample;
+        initStaticUi();
+        await renderAll();
+      }
+
+      sampleInput.addEventListener("input", renderAll);
+      weightInput.addEventListener("change", renderAll);
+      sizeInput.addEventListener("input", renderAll);
+      boot();
+    </script>
+  </body>
+</html>
