@@ -10,7 +10,7 @@ from fontTools.varLib.instancer import instantiateVariableFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "fonts" / "InterV.tripster-ultra-variable.woff2"
+SOURCE = ROOT / "fonts" / "InterV.tripster.woff2"
 WEIGHTS = {
     400: "Regular",
     500: "Medium",
