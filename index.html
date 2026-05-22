@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inter optimized comparator</title>
+    <title>Сравнятор</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <style>
       @font-face {
         font-family: "Inter Original";
@@ -177,28 +178,6 @@
       input[type="range"] {
         padding: 0;
         accent-color: var(--accent);
-      }
-
-      .quick {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 12px 0 20px;
-      }
-
-      .quick button {
-        min-width: 36px;
-        height: 34px;
-        border: 1px solid var(--line);
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.82);
-        color: var(--ink);
-        font: 600 15px "Inter Original", system-ui, sans-serif;
-        cursor: pointer;
-      }
-
-      .quick button:hover {
-        border-color: var(--accent);
       }
 
       .grid {
@@ -461,8 +440,6 @@
         </label>
       </section>
 
-      <div class="quick" id="quickChars" aria-label="Быстрые символы"></div>
-
       <section class="grid" id="cards"></section>
 
       <section class="panel charset">
@@ -485,13 +462,8 @@
           name: "Optimized",
           family: "Inter Optimized",
           file: "400/500/600/800 optimized static WOFF2",
-          size: "89 KB / 4 files",
+          size: "93 KB / 4 files",
         },
-      ];
-
-      const quickChars = [
-        "A", "a", "Ж", "ж", "Ё", "ё", "Й", "ї", "Ґ", "ß", "№", "₽", "€", "$",
-        "0", "1", "4", "…", "—", "→", "✓", "★", "æ", "ø", "你",
       ];
 
       const sampleInput = document.querySelector("#sampleInput");
@@ -500,7 +472,6 @@
       const sizeValue = document.querySelector("#sizeValue");
       const cards = document.querySelector("#cards");
       const sizeStrip = document.querySelector("#sizeStrip");
-      const quick = document.querySelector("#quickChars");
       const charsetTable = document.querySelector("#charsetTable");
       let coverage = {};
       let coverageReady = false;
@@ -751,16 +722,6 @@
           sizeStrip.appendChild(pill);
         }
 
-        for (const char of quickChars) {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.textContent = char;
-          button.addEventListener("click", () => {
-            sampleInput.value = char;
-            renderAll();
-          });
-          quick.appendChild(button);
-        }
       }
 
       async function boot() {
